@@ -18,10 +18,12 @@ public class HelloWorldController {
     public ResponseEntity<ResponseDTO> helloWorldMethod(
         @RequestParam(name = "name", required = false) String name
     ) {
-        String userName = Strings.isNotEmpty(name) ? name : "World";
+        if (Strings.isEmpty(name) || Strings.isBlank(name)) {
+            name = "World";
+        }
 
         ResponseDTO responseDTO = new ResponseDTO();
-        responseDTO.setMessage("Hello, " + userName);
+        responseDTO.setMessage("Hello, " + name);
 
         return new ResponseEntity<>(responseDTO, OK);
     }
